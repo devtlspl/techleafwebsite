@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.techleafsystems.com/</loc><lastmod>2026-03-14</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.techleafsystems.com/about.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.techleafsystems.com/services.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.techleafsystems.com/case-studies.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.techleafsystems.com/contact.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.techleafsystems.com/services/hardware-rentals.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.techleafsystems.com/services/on-demand-dba.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.techleafsystems.com/services/amc-fms.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.techleafsystems.com/services/network-design.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.techleafsystems.com/services/server-implementation.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.techleafsystems.com/services/consumables.html</loc><lastmod>2026-03-14</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.techleafsystems.com/index.html</loc></url>
+  <url><loc>https://www.techleafsystems.com/services.html</loc></url>
+  <url><loc>https://www.techleafsystems.com/about.html</loc></url>
+  <url><loc>https://www.techleafsystems.com/case-studies.html</loc></url>
+  <url><loc>https://www.techleafsystems.com/contact.html</loc></url>
+  <url><loc>https://www.techleafsystems.com/services/hardware-rentals.html</loc></url>
+  <url><loc>https://www.techleafsystems.com/services/server-implementation.html</loc></url>
+  <url><loc>https://www.techleafsystems.com/services/on-demand-dba.html</loc></url>
+  <url><loc>https://www.techleafsystems.com/services/network-design.html</loc></url>
 </urlset>

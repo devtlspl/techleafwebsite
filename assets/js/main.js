@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
   // Multi-step Form
   initMultiStepForm();
 
+  // Hide WhatsApp widget while hero slider is in view
+  initHideWhatsAppOnSlider();
+
+  // Auto-rotate hero slider every 7s
+  initHeroSliderAutoplay();
+
   // Service option selector
   document.querySelectorAll('.service-option').forEach(opt => {
     opt.addEventListener('click', function () {
@@ -108,5 +114,47 @@ if ('IntersectionObserver' in window) {
     el.style.transform = 'translateY(16px)';
     el.style.transition = 'opacity .4s ease, transform .4s ease';
     observer.observe(el);
+  });
+}
+
+function initHideWhatsAppOnSlider() {
+  const slider = document.querySelector('.video-strip');
+  if (!slider || !('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        document.body.classList.toggle('hide-whatsapp', entry.isIntersecting);
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  observer.observe(slider);
+}
+
+function initHeroSliderAutoplay() {
+  const slides = Array.from(document.querySelectorAll('input[name="slider"]'));
+  if (!slides.length) return;
+
+  let current = slides.findIndex(s => s.checked);
+  if (current < 0) current = 0;
+  slides[current].checked = true;
+
+  const intervalMs = 7000;
+  let timer = setInterval(nextSlide, intervalMs);
+
+  function nextSlide() {
+    current = (current + 1) % slides.length;
+    slides[current].checked = true;
+  }
+
+  // Reset timer on manual dot click
+  slides.forEach((slide, index) => {
+    slide.addEventListener('change', () => {
+      current = index;
+      clearInterval(timer);
+      timer = setInterval(nextSlide, intervalMs);
+    });
   });
 }

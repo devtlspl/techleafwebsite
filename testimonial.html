@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Share a Testimonial | TechLeaf Systems</title>
+  <meta name="description" content="Send a quick testimonial about your experience with TechLeaf Systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --blue:#0B2F8A; --green:#2ECC71; --gray:#4a5568; --gray-100:#f7fafc; --radius:14px; --shadow:0 20px 40px rgba(11,47,138,.12); }
+    *,*::before,*::after{box-sizing:border-box;}
+    body{margin:0;font-family:'Inter',system-ui,sans-serif;background:#f5f7fb;color:#1a202c;}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;}
+    .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.25rem;max-width:560px;width:100%;}
+    h1{margin:0 0 1rem;font-size:1.6rem;color:var(--blue);}
+    p.lead{margin:0 0 1.5rem;color:#4b5563;font-size:.98rem;}
+    form{display:grid;gap:1rem;}
+    label{display:block;font-weight:600;margin-bottom:.35rem;color:#1f2937;}
+    input,textarea,select{width:100%;padding:.85rem 1rem;border:1.5px solid #e2e8f0;border-radius:12px;font:inherit;transition:border-color .2s,box-shadow .2s;background:#fff;}
+    input:focus,textarea:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(11,47,138,.12);}
+    textarea{min-height:130px;resize:vertical;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.9rem 1.2rem;border-radius:12px;border:none;font-weight:700;font-size:.95rem;cursor:pointer;transition:transform .15s,box-shadow .15s;}
+    .btn-primary{background:var(--blue);color:#fff;box-shadow:0 14px 24px rgba(11,47,138,.2);}
+    .btn-primary:hover{transform:translateY(-1px);}
+    .btn-primary:active{transform:translateY(0);}
+    .status{font-size:.92rem;padding:.75rem 1rem;border-radius:12px;display:none;}
+    .status.ok{display:block;background:rgba(46,204,113,.12);color:#0f7a40;border:1px solid rgba(46,204,113,.35);}
+    .status.err{display:block;background:rgba(235,87,87,.12);color:#a52828;border:1px solid rgba(235,87,87,.35);}
+    @media(max-width:640px){.card{padding:1.6rem;} h1{font-size:1.35rem;}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Share a Testimonial</h1>
+      <p class="lead">Tell us how TechLeaf helped with rentals, network design, servers, storage, or database support.</p>
+      <div id="status" class="status"></div>
+      <form id="testimonial-form">
+        <div>
+          <label for="name">Name *</label>
+          <input id="name" name="name" type="text" required placeholder="Your name" />
+        </div>
+        <div>
+          <label for="company">Company (optional)</label>
+          <input id="company" name="company" type="text" placeholder="Company name" />
+        </div>
+        <div>
+          <label for="message">Testimonial *</label>
+          <textarea id="message" name="message" required placeholder="Tell us about your project and results"></textarea>
+        </div>
+        <div>
+          <label for="rating">Rating *</label>
+          <select id="rating" name="rating" required>
+            <option value="">Select rating</option>
+            <option value="5">★★★★★ (5)</option>
+            <option value="4">★★★★☆ (4)</option>
+            <option value="3">★★★☆☆ (3)</option>
+            <option value="2">★★☆☆☆ (2)</option>
+            <option value="1">★☆☆☆☆ (1)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('testimonial-form');
+    const statusEl = document.getElementById('status');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      statusEl.className = 'status';
+      statusEl.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      // Simulate a quick success response
+      setTimeout(() => {
+        statusEl.textContent = 'Thank you! Your testimonial has been recorded.';
+        statusEl.className = 'status ok';
+        statusEl.style.display = 'block';
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      }, 800);
+    });
+  </script>
+</body>
+</html>

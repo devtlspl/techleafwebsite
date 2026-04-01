@@ -109,7 +109,7 @@ if ('IntersectionObserver' in window) {
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.why-card, .service-card, .testimonial-card, .case-study-card').forEach(el => {
+  document.querySelectorAll('.why-card, .service-card, .case-study-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(16px)';
     el.style.transition = 'opacity .4s ease, transform .4s ease';

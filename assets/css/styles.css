@@ -592,11 +592,12 @@ p { margin-bottom: 1rem; }
 .culture-card h4 { margin-bottom: .45rem; font-size: 1rem; }
 .culture-card p { margin: 0; font-size: .88rem; color: var(--gray-500); }
 .openings-grid { display: grid; gap: 1.5rem; }
-.job-card { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1.4rem; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 1.15rem; box-shadow: var(--shadow-sm); }
-.job-card.reverse { grid-template-columns: minmax(0, 1fr) 220px; }
+.job-card { display: grid; grid-template-columns: minmax(260px, 320px) minmax(0, 1fr); gap: 1.4rem; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 1.15rem; box-shadow: var(--shadow-sm); }
+.job-card.reverse { grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); }
 .job-card.reverse .job-card-media { order: 2; }
 .job-card.reverse .job-card-body { order: 1; }
-.job-card-media img { width: 100%; height: 100%; min-height: 210px; object-fit: cover; border-radius: var(--radius-lg); display: block; }
+.job-card-media { border-radius: var(--radius-lg); overflow: hidden; align-self: stretch; }
+.job-card-media img { width: 100%; height: 100%; min-height: 260px; object-fit: cover; object-position: center; border-radius: var(--radius-lg); display: block; }
 .job-card-body h3 { margin-bottom: .35rem; font-size: 1.2rem; }
 .job-card-body p { color: var(--gray-500); font-size: .92rem; margin-bottom: 1rem; }
 .job-meta { display: flex; flex-wrap: wrap; gap: .65rem; margin-bottom: 1rem; }

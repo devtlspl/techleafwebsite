@@ -529,7 +529,7 @@ p { margin-bottom: 1rem; }
 .contact-page-hero .container { max-width: none; padding-left: 5px; padding-right: 5px; }
 .contact-page-hero .page-hero-grid > .page-hero-image-card { width: 100%; margin-left: 0; margin-right: 0; }
 .page-hero-image-card img { width: 100%; height: 100%; object-fit: cover; object-position: 55% center; filter: brightness(1.02) contrast(1.03) saturate(1.06); }
-.contact-page-hero .page-hero-image-card img { object-position: 68% center; transform: scale(.94); transform-origin: center; }
+.contact-page-hero .page-hero-image-card img { object-position: 68% center; transform: scale(1.04); transform-origin: center; }
 .page-hero-image-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,18,38,.28), rgba(6,18,38,.22)), radial-gradient(circle at 25% 20%, rgba(255,255,255,.12), transparent 50%); }
 .page-hero-image-copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: .35rem; padding: 1rem .9rem .85rem 1.5rem; color: rgba(247,249,252,.78); text-shadow: 0 4px 10px rgba(0,0,0,.28); pointer-events: none; }
 .page-hero-image-copy .eyebrow { letter-spacing: .08em; text-transform: uppercase; font-weight: 700; font-size: .82rem; color: rgba(232,247,255,.82); }
@@ -607,7 +607,7 @@ p { margin-bottom: 1rem; }
 .job-points li::before { content: ''; position: absolute; left: 0; top: .55rem; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 .job-actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
 .job-actions .btn { min-width: 14rem; justify-content: center; }
-.job-status { font-size: .8rem; font-weight: 700; color: var(--green); }
+.job-status { font-size: .8rem; font-weight: 700; color: var(--green); cursor: default; user-select: none; }
 .process-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
 .process-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 1.25rem 1rem; text-align: center; box-shadow: var(--shadow-sm); }
 .process-card .step-num { width: 2.2rem; height: 2.2rem; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: .9rem; background: rgba(26,122,74,.12); color: var(--green); font-weight: 800; }

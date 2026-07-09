@@ -65,27 +65,44 @@
     </div>
   </div>
 
+  <script src="assets/js/mail-api.js"></script>
   <script>
     const form = document.getElementById('testimonial-form');
     const statusEl = document.getElementById('status');
     const submitBtn = document.getElementById('submit-btn');
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       statusEl.className = 'status';
       statusEl.style.display = 'none';
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
-      // Simulate a quick success response
-      setTimeout(() => {
+      try {
+        const formData = new FormData(form);
+        const data = {
+          formType: 'testimonial',
+          name: formData.get('name') || '',
+          company: formData.get('company') || '',
+          message: `[Rating: ${formData.get('rating')}/5]\n${formData.get('message') || ''}`
+        };
+
+        await window.sendSubmitForm(data);
+
         statusEl.textContent = 'Thank you! Your testimonial has been recorded.';
         statusEl.className = 'status ok';
         statusEl.style.display = 'block';
         form.reset();
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit';
-      }, 800);
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Failed to send. Please try again.';
+        statusEl.className = 'status err';
+        statusEl.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      }
     });
   </script>
 </body>

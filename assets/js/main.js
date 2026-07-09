@@ -78,13 +78,32 @@ function initMultiStepForm() {
     btn.addEventListener('click', () => showStep(currentStep - 1));
   });
 
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
     const submitBtn = form.querySelector('[type="submit"]');
+    const originalText = submitBtn.textContent;
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
 
-    setTimeout(() => {
+    try {
+      const formData = new FormData(form);
+      const data = {
+        formType: 'sales',
+        name: formData.get('name') || '',
+        email: formData.get('email') || '',
+        phone: formData.get('phone') || '',
+        company: formData.get('company') || '',
+        budget: '', // or extract if added later
+        message: `[Interest: ${formData.get('service') || 'None'}] [Timeline: ${formData.get('timeline') || 'None'}]\n${formData.get('message') || ''}`
+      };
+
+      const city = formData.get('city');
+      if (city) {
+        data.message = `[City: ${city}]\n${data.message}`;
+      }
+
+      await window.sendSubmitForm(data);
+
       form.innerHTML = `
         <div style="text-align:center;padding:2.5rem 1rem;">
           <div style="width:64px;height:64px;background:rgba(26,122,74,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
@@ -93,7 +112,12 @@ function initMultiStepForm() {
           <h3 style="color:#1a202c;margin-bottom:.5rem;">Request Received!</h3>
           <p style="color:#718096;font-size:.95rem;">Our team will respond within <strong>2 business hours</strong>. For urgent matters, call us directly at <a href="tel:04431396714" style="color:#1a7a4a;font-weight:600;">044-3139 6714</a>.</p>
         </div>`;
-    }, 1200);
+    } catch (err) {
+      console.error(err);
+      alert('There was a problem sending your request. Please try again or call us directly.');
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
   });
 }
 

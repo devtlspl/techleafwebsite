@@ -79,7 +79,7 @@
         <p>Join a growing IT infrastructure and support company where field execution, engineering quality, and customer trust matter every day. We hire people who want to solve real-world problems and keep learning fast.</p>
         <div class="careers-hero-actions">
           <a href="#openings" class="btn btn-white btn-lg">View Openings</a>
-          <a href="contact.html#assessment" class="btn btn-outline-white btn-lg">Send Your Resume</a>
+          <a href="#apply-section" class="btn btn-outline-white btn-lg">Apply Now</a>
         </div>
         <div class="careers-hero-notes">
           <span class="careers-hero-note">Field Engineering</span>
@@ -153,7 +153,7 @@
             <li>Coordinate with internal teams and clients for fast issue resolution.</li>
           </ul>
           <div class="job-actions">
-            <a href="contact.html#assessment" class="btn btn-primary">Apply for Field Engineer</a>
+            <a href="#apply-section" class="btn btn-primary" onclick="document.getElementById('role').value='Field Engineer'">Apply for Field Engineer</a>
             <span class="job-status">Immediate opening</span>
           </div>
         </div>
@@ -177,7 +177,7 @@
             <li>Work with engineering teams to keep proposals accurate and realistic.</li>
           </ul>
           <div class="job-actions">
-            <a href="contact.html#assessment" class="btn btn-primary">Apply for Sales Person</a>
+            <a href="#apply-section" class="btn btn-primary" onclick="document.getElementById('role').value='Sales Person'">Apply for Sales Person</a>
             <span class="job-status">Customer-facing role</span>
           </div>
         </div>
@@ -201,7 +201,7 @@
             <li>Collaborate with business and technical teams to ship useful systems.</li>
           </ul>
           <div class="job-actions">
-            <a href="contact.html#assessment" class="btn btn-primary">Apply for Developer</a>
+            <a href="#apply-section" class="btn btn-primary" onclick="document.getElementById('role').value='Developer'">Apply for Developer</a>
             <span class="job-status">Engineering role</span>
           </div>
         </div>
@@ -247,12 +247,59 @@
   </div>
 </section>
 
+<section id="apply-section" class="section bg-light">
+  <div class="container" style="max-width: 600px; margin: 0 auto;">
+    <div class="section-header text-center" style="text-align: center; margin-bottom: 2rem;">
+      <h2>Apply Now</h2>
+      <p>Submit your details and LinkedIn profile below. We'll be in touch.</p>
+    </div>
+    <form id="career-form" class="card" style="padding: 2.25rem; background: white; border: 1px solid rgba(0,0,0,.06); border-radius: 14px; box-shadow: 0 20px 40px rgba(11,47,138,.12);">
+      <div id="career-status" style="display:none; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;"></div>
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="name" style="display:block; margin-bottom: 0.5rem; font-weight:600;">Full Name *</label>
+        <input type="text" id="name" name="name" required style="width:100%; padding: 0.85rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 12px; font: inherit;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="email" style="display:block; margin-bottom: 0.5rem; font-weight:600;">Email *</label>
+        <input type="email" id="email" name="email" required style="width:100%; padding: 0.85rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 12px; font: inherit;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="phone" style="display:block; margin-bottom: 0.5rem; font-weight:600;">Phone</label>
+        <input type="tel" id="phone" name="phone" style="width:100%; padding: 0.85rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 12px; font: inherit;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="role" style="display:block; margin-bottom: 0.5rem; font-weight:600;">Role Applying For *</label>
+        <select id="role" name="role" required style="width:100%; padding: 0.85rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 12px; font: inherit;">
+          <option value="">Select a role...</option>
+          <option value="Field Engineer">Field Engineer</option>
+          <option value="Sales Person">Sales Person</option>
+          <option value="Developer">Developer</option>
+          <option value="Other">Other / General</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="linkedin" style="display:block; margin-bottom: 0.5rem; font-weight:600;">LinkedIn or Portfolio Link</label>
+        <input type="url" id="linkedin" name="linkedin" style="width:100%; padding: 0.85rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 12px; font: inherit;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="resume" style="display:block; margin-bottom: 0.5rem; font-weight:600;">Upload Resume (PDF, DOC) *</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required style="width:100%; padding: 0.75rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 12px; font: inherit; background: #f8fafc;" />
+      </div>
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label for="message" style="display:block; margin-bottom: 0.5rem; font-weight:600;">Why are you a good fit?</label>
+        <textarea id="message" name="message" rows="4" style="width:100%; padding: 0.85rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 12px; font: inherit; resize: vertical;"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%; padding: 1rem; border-radius: 12px; background: var(--blue, #0B2F8A); color: white; border: none; font-weight: 700; cursor: pointer;">Submit Application</button>
+    </form>
+  </div>
+</section>
+
 <section class="cta-banner">
   <div class="container">
     <h2>Ready to Be Part of the Team?</h2>
     <p>Send us your resume and tell us the role you’re interested in. If there’s a strong fit, we’ll get back to you quickly.</p>
     <div class="btns">
-      <a href="contact.html#assessment" class="btn btn-white btn-lg">Send Your Resume</a>
+      <a href="#apply-section" class="btn btn-white btn-lg">Apply Now</a>
       <a href="contact.html" class="btn btn-outline-white btn-lg">Contact HR</a>
     </div>
   </div>
@@ -299,6 +346,76 @@
   </a>
 </div>
 <a href="tel:04431396714" class="sticky-call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.18 2 2 0 012.18 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0120 14.9z"/></svg>Tap to Call: 044-3139 6714</a>
+<script src="assets/js/mail-api.js"></script>
 <script src="assets/js/main.js"></script>
+<script>
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const careerForm = document.getElementById('career-form');
+  if(careerForm) {
+    const statusDiv = document.getElementById('career-status');
+    careerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = careerForm.querySelector('button[type="submit"]');
+      const origText = submitBtn.textContent;
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+      statusDiv.style.display = 'none';
+
+      try {
+        const formData = new FormData(careerForm);
+        const file = formData.get('resume');
+        
+        let attachments = [];
+        if (file && file.size > 0) {
+          if (file.size > 5 * 1024 * 1024) { // 5MB limit
+            throw new Error("File is too large. Please upload a file under 5MB.");
+          }
+          const base64 = await fileToBase64(file);
+          attachments.push({
+            filename: file.name,
+            contentType: file.type || "application/octet-stream",
+            content: base64
+          });
+        }
+
+        const data = {
+          formType: 'career',
+          name: formData.get('name') || '',
+          email: formData.get('email') || '',
+          phone: formData.get('phone') || '',
+          message: `[Role: ${formData.get('role')}]\n[LinkedIn: ${formData.get('linkedin') || 'Not provided'}]\n\n${formData.get('message') || ''}`,
+          attachments: attachments
+        };
+
+        await window.sendSubmitForm(data);
+
+        statusDiv.textContent = 'Application submitted successfully! We will be in touch.';
+        statusDiv.style.display = 'block';
+        statusDiv.style.backgroundColor = 'rgba(46,204,113,.12)';
+        statusDiv.style.color = '#0f7a40';
+        statusDiv.style.border = '1px solid rgba(46,204,113,.35)';
+        careerForm.reset();
+      } catch (err) {
+        console.error(err);
+        statusDiv.textContent = err.message || 'Failed to submit application. Please try again.';
+        statusDiv.style.display = 'block';
+        statusDiv.style.backgroundColor = 'rgba(235,87,87,.12)';
+        statusDiv.style.color = '#a52828';
+        statusDiv.style.border = '1px solid rgba(235,87,87,.35)';
+      } finally {
+        submitBtn.textContent = origText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+</script>
 </body>
 </html>

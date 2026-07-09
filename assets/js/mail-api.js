@@ -32,7 +32,7 @@ async function sendMailApi(endpoint, data) {
 /**
  * For all forms sending to /api/submit
  */
-export async function sendSubmitForm(data) {
+async function sendSubmitForm(data) {
   return await sendMailApi("submit", data);
 }
 

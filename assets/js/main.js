@@ -104,14 +104,7 @@ function initMultiStepForm() {
 
       await window.sendSubmitForm(data);
 
-      form.innerHTML = `
-        <div style="text-align:center;padding:2.5rem 1rem;">
-          <div style="width:64px;height:64px;background:rgba(26,122,74,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#1a7a4a" stroke-width="2.5" width="32" height="32"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <h3 style="color:#1a202c;margin-bottom:.5rem;">Request Received!</h3>
-          <p style="color:#718096;font-size:.95rem;">Our team will respond within <strong>2 business hours</strong>. For urgent matters, call us directly at <a href="tel:04431396714" style="color:#1a7a4a;font-weight:600;">044-3139 6714</a>.</p>
-        </div>`;
+      window.location.href = "thank-you.html";
     } catch (err) {
       console.error(err);
       alert('There was a problem sending your request. Please try again or call us directly.');

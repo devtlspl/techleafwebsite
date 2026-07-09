@@ -397,12 +397,7 @@
 
         await window.sendSubmitForm(data);
 
-        statusDiv.textContent = 'Application submitted successfully! We will be in touch.';
-        statusDiv.style.display = 'block';
-        statusDiv.style.backgroundColor = 'rgba(46,204,113,.12)';
-        statusDiv.style.color = '#0f7a40';
-        statusDiv.style.border = '1px solid rgba(46,204,113,.35)';
-        careerForm.reset();
+        window.location.href = 'thank-you.html';
       } catch (err) {
         console.error(err);
         statusDiv.textContent = err.message || 'Failed to submit application. Please try again.';

@@ -254,6 +254,7 @@
       <p>Submit your details and LinkedIn profile below. We'll be in touch.</p>
     </div>
     <form id="career-form" class="card" style="padding: 2.25rem; background: white; border: 1px solid rgba(0,0,0,.06); border-radius: 14px; box-shadow: 0 20px 40px rgba(11,47,138,.12);">
+      <input type="text" name="_bot_trap" style="display:none" tabindex="-1" autocomplete="off" />
       <div id="career-status" style="display:none; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;"></div>
       <div class="form-group" style="margin-bottom: 1rem;">
         <label for="name" style="display:block; margin-bottom: 0.5rem; font-weight:600;">Full Name *</label>
@@ -388,6 +389,7 @@
 
         const data = {
           formType: 'career',
+          botTrap: formData.get('_bot_trap') || '',
           name: formData.get('name') || '',
           email: formData.get('email') || '',
           phone: formData.get('phone') || '',

@@ -37,6 +37,7 @@
       <p class="lead">Tell us how TechLeaf helped with rentals, network design, servers, storage, or database support.</p>
       <div id="status" class="status"></div>
       <form id="testimonial-form">
+        <input type="text" name="_bot_trap" style="display:none" tabindex="-1" autocomplete="off" />
         <div>
           <label for="name">Name *</label>
           <input id="name" name="name" type="text" required placeholder="Your name" />
@@ -82,6 +83,7 @@
         const formData = new FormData(form);
         const data = {
           formType: 'testimonial',
+          botTrap: formData.get('_bot_trap') || '',
           name: formData.get('name') || '',
           company: formData.get('company') || '',
           message: `[Rating: ${formData.get('rating')}/5]\n${formData.get('message') || ''}`

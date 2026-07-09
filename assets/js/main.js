@@ -89,6 +89,7 @@ function initMultiStepForm() {
       const formData = new FormData(form);
       const data = {
         formType: 'sales',
+        botTrap: formData.get('_bot_trap') || '',
         name: formData.get('name') || '',
         email: formData.get('email') || '',
         phone: formData.get('phone') || '',

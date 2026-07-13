@@ -1,7 +1,8 @@
 const MAIL_API_BASE = "https://mailsvx.azurewebsites.net/api";
 
-// Replace this with your full 'default' Host Key from the Azure Portal
-const FUNCTION_KEY = "7jQxXArv_ZXrVnH4ECxhqLS4Cme9pxtD9IuHOm6yv9gxAzFuL3y4RA==";
+// SECURITY: Proxy this call server-side or configure CORS in Azure
+// Do not commit the Host Key to public source code.
+const FUNCTION_KEY = "";
 
 /**
  * Sends data to a specified endpoint of the Mailsvx API

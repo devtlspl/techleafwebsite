@@ -16,9 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // Hide WhatsApp widget while hero slider is in view
   initHideWhatsAppOnSlider();
 
-  // Auto-rotate hero slider every 7s
-  initHeroSliderAutoplay();
-
   // Service option selector
   document.querySelectorAll('.service-option').forEach(opt => {
     opt.addEventListener('click', function () {
@@ -151,34 +148,7 @@ function initHideWhatsAppOnSlider() {
   observer.observe(slider);
 }
 
-function initHeroSliderAutoplay() {
-  const slides = Array.from(document.querySelectorAll('input[name="slider"]'));
-  if (!slides.length) return;
-
-  let current = slides.findIndex(s => s.checked);
-  if (current < 0) current = 0;
-  slides[current].checked = true;
-
-  const intervalMs = 7000;
-  let timer = setInterval(nextSlide, intervalMs);
-
-  function nextSlide() {
-    current = (current + 1) % slides.length;
-    slides[current].checked = true;
-  }
-
-  // Reset timer on manual dot click
-  slides.forEach((slide, index) => {
-    slide.addEventListener('change', () => {
-      current = index;
-      clearInterval(timer);
-      timer = setInterval(nextSlide, intervalMs);
-    });
-  });
-}
-
-// GA4 Event Tracking
-document.addEventListener('DOMContentLoaded', function () {
+  // GA4 Event Tracking
   // Track button clicks
   document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('click', function(e) {
@@ -209,10 +179,9 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
-});
 
-// Track form submissions globally
-document.addEventListener('submit', function(e) {
+  // Track form submissions globally
+  document.addEventListener('submit', function(e) {
   if (typeof gtag === 'function') {
     gtag('event', 'generate_lead', {
       'event_category': 'form_submission',
@@ -220,4 +189,5 @@ document.addEventListener('submit', function(e) {
       'value': 50
     });
   }
+});
 });

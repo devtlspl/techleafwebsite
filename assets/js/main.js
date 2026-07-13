@@ -176,3 +176,45 @@ function initHeroSliderAutoplay() {
     });
   });
 }
+
+// GA4 Event Tracking
+document.addEventListener('DOMContentLoaded', function () {
+  // Track button clicks
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      if (typeof gtag === 'function') {
+        let label = this.innerText.trim();
+        gtag('event', 'generate_lead', {
+          'event_category': 'button_click',
+          'event_label': label,
+          'value': 1
+        });
+      }
+    });
+  });
+
+  // Track contact links (tel:, mailto:)
+  document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      if (typeof gtag === 'function') {
+        let type = this.href.startsWith('tel:') ? 'Phone Call' : 'Email Click';
+        gtag('event', 'generate_lead', {
+          'event_category': 'contact_link',
+          'event_label': type,
+          'value': 1
+        });
+      }
+    });
+  });
+});
+
+// Track form submissions globally
+document.addEventListener('submit', function(e) {
+  if (typeof gtag === 'function') {
+    gtag('event', 'generate_lead', {
+      'event_category': 'form_submission',
+      'event_label': e.target.id || 'contact_form',
+      'value': 50
+    });
+  }
+});

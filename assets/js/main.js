@@ -193,11 +193,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Track contact links (tel:, mailto:)
-  document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"]').forEach(link => {
+  // Track contact links (tel:, mailto:, wa.me)
+  document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"], a[href*="wa.me"]').forEach(link => {
     link.addEventListener('click', function(e) {
       if (typeof gtag === 'function') {
-        let type = this.href.startsWith('tel:') ? 'Phone Call' : 'Email Click';
+        let type = 'Contact Link';
+        if (this.href.startsWith('tel:')) type = 'Phone Call';
+        else if (this.href.startsWith('mailto:')) type = 'Email Click';
+        else if (this.href.includes('wa.me')) type = 'WhatsApp Chat';
         gtag('event', 'generate_lead', {
           'event_category': 'contact_link',
           'event_label': type,

@@ -776,3 +776,14 @@ div.service-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rg
   .hero-bento-16 .bento-item { flex: 1 1 40%; height: 150px; }
 }
 
+
+.pvt-ltd { 
+    display: block; 
+    font-size: 0.55em; 
+    color: var(--gray-500); 
+    line-height: 1; 
+    margin-top: 0px; 
+}
+.footer-brand .pvt-ltd { 
+    color: rgba(255,255,255,0.7); 
+}

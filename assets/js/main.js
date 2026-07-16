@@ -77,19 +77,51 @@ function initMultiStepForm() {
 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
+    
     const submitBtn = form.querySelector('[type="submit"]');
+    
+    // Create or get error message element
+    let errorEl = form.querySelector('.form-error-msg');
+    if (!errorEl) {
+      errorEl = document.createElement('div');
+      errorEl.className = 'form-error-msg';
+      errorEl.style.color = '#ef4444';
+      errorEl.style.padding = '12px 16px';
+      errorEl.style.marginBottom = '16px';
+      errorEl.style.borderRadius = '8px';
+      errorEl.style.backgroundColor = '#fee2e2';
+      errorEl.style.border = '1px solid #f87171';
+      errorEl.style.display = 'none';
+      errorEl.style.fontSize = '0.9rem';
+      errorEl.style.fontWeight = '500';
+      errorEl.style.width = '100%';
+      submitBtn.parentNode.insertBefore(errorEl, submitBtn);
+    }
+    
+    errorEl.style.display = 'none';
+
+    const formData = new FormData(form);
+    const name = formData.get('name') ? formData.get('name').trim() : '';
+    const email = formData.get('email') ? formData.get('email').trim() : '';
+    const phone = formData.get('phone') ? formData.get('phone').trim() : '';
+    
+    if (!name || (!email && !phone)) {
+      errorEl.textContent = 'Please provide your name and either an email or phone number so we can reach you.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
     const originalText = submitBtn.textContent;
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
 
     try {
-      const formData = new FormData(form);
       const data = {
         formType: 'sales',
         botTrap: formData.get('_bot_trap') || '',
-        name: formData.get('name') || '',
-        email: formData.get('email') || '',
-        phone: formData.get('phone') || '',
+        name: name,
+        email: email,
+        phone: phone,
         company: formData.get('company') || '',
         budget: '', // or extract if added later
         message: `[Interest: ${formData.get('service') || 'None'}] [Timeline: ${formData.get('timeline') || 'None'}]\n${formData.get('message') || ''}`
@@ -105,7 +137,8 @@ function initMultiStepForm() {
       window.location.href = "thank-you.html";
     } catch (err) {
       console.error(err);
-      alert('There was a problem sending your request. Please try again or call us directly.');
+      errorEl.textContent = 'There was a problem sending your request. Please check your connection and try again, or call us directly.';
+      errorEl.style.display = 'block';
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
     }

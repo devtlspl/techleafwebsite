@@ -148,7 +148,8 @@ p { margin-bottom: 1rem; }
 
 /* Services hero */
 .services-hero { border-radius: var(--radius-xl); overflow: hidden; margin-bottom: 3.5rem; position: relative; aspect-ratio: 3/2; background: radial-gradient(circle at 20% 15%, rgba(255,255,255,.08), transparent 40%), #0f2952; }
-.services-hero-fullbleed { width: 100%; border-radius: 0; }
+.services-hero-fullbleed { width: 100%; border-radius: 0; aspect-ratio: 21/9; max-height: 400px; }
+@media (max-width: 768px) { .services-hero-fullbleed { aspect-ratio: 4/3; } }
 .services-hero::before {
   content: '';
   position: absolute;

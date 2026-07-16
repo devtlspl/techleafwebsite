@@ -190,5 +190,3 @@ function initHideWhatsAppOnSlider() {
     });
   }
 });
-
-window.sendSubmitForm = async function(data) { const response = await fetch('https://mailsvx.azurewebsites.net/api/sendEmail', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }); if (!response.ok) throw new Error('Failed'); return response; };

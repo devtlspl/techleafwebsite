@@ -181,45 +181,50 @@ function initHideWhatsAppOnSlider() {
   observer.observe(slider);
 }
 
-  // GA4 Event Tracking
-  // Track button clicks
-  document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
+  // GA4 Event Tracking wrapped in DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Track button clicks
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        // Fix: Do not track back buttons as leads
+        if (this.innerText.trim().toLowerCase().includes('back')) return;
+        
+        if (typeof gtag === 'function') {
+          let label = this.innerText.trim();
+          gtag('event', 'generate_lead', {
+            'event_category': 'button_click',
+            'event_label': label,
+            'value': 1
+          });
+        }
+      });
+    });
+
+    // Track contact links (tel:, mailto:, wa.me)
+    document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"], a[href*="wa.me"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        if (typeof gtag === 'function') {
+          let type = 'Contact Link';
+          if (this.href.startsWith('tel:')) type = 'Phone Call';
+          else if (this.href.startsWith('mailto:')) type = 'Email Click';
+          else if (this.href.includes('wa.me')) type = 'WhatsApp Chat';
+          gtag('event', 'generate_lead', {
+            'event_category': 'contact_link',
+            'event_label': type,
+            'value': 1
+          });
+        }
+      });
+    });
+
+    // Track form submissions globally
+    document.addEventListener('submit', function(e) {
       if (typeof gtag === 'function') {
-        let label = this.innerText.trim();
         gtag('event', 'generate_lead', {
-          'event_category': 'button_click',
-          'event_label': label,
-          'value': 1
+          'event_category': 'form_submission',
+          'event_label': e.target.id || 'contact_form',
+          'value': 50
         });
       }
     });
   });
-
-  // Track contact links (tel:, mailto:, wa.me)
-  document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"], a[href*="wa.me"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-      if (typeof gtag === 'function') {
-        let type = 'Contact Link';
-        if (this.href.startsWith('tel:')) type = 'Phone Call';
-        else if (this.href.startsWith('mailto:')) type = 'Email Click';
-        else if (this.href.includes('wa.me')) type = 'WhatsApp Chat';
-        gtag('event', 'generate_lead', {
-          'event_category': 'contact_link',
-          'event_label': type,
-          'value': 1
-        });
-      }
-    });
-  });
-
-  // Track form submissions globally
-  document.addEventListener('submit', function(e) {
-  if (typeof gtag === 'function') {
-    gtag('event', 'generate_lead', {
-      'event_category': 'form_submission',
-      'event_label': e.target.id || 'contact_form',
-      'value': 50
-    });
-  }
-});

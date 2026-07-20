@@ -228,3 +228,18 @@ function initHideWhatsAppOnSlider() {
       }
     });
   });
+
+// Form Step 1 Validation
+document.addEventListener('click', function(e) {
+  if (e.target.matches('[data-next]')) {
+    const currentPanel = e.target.closest('.form-panel');
+    if (currentPanel && currentPanel.id === 'step1') {
+      const selectedService = currentPanel.querySelector('input[type="radio"]:checked');
+      if (!selectedService) {
+        alert('Please select a service before proceeding.');
+        e.stopImmediatePropagation();
+        e.preventDefault();
+      }
+    }
+  }
+}, true); // use capture phase to intercept before other listeners

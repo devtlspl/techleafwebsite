@@ -183,22 +183,8 @@ function initHideWhatsAppOnSlider() {
 
   // GA4 Event Tracking wrapped in DOMContentLoaded
   document.addEventListener('DOMContentLoaded', function() {
-    // Track button clicks
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        // Fix: Do not track back buttons as leads
-        if (this.innerText.trim().toLowerCase().includes('back')) return;
-        
-        if (typeof gtag === 'function') {
-          let label = this.innerText.trim();
-          gtag('event', 'generate_lead', {
-            'event_category': 'button_click',
-            'event_label': label,
-            'value': 1
-          });
-        }
-      });
-    });
+    // Generic button click tracking has been removed.
+    // We only track actual form submissions and direct contact links (WhatsApp/Phone/Email) as leads.
 
     // Track contact links (tel:, mailto:, wa.me)
     document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"], a[href*="wa.me"]').forEach(link => {

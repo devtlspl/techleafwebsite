@@ -141,6 +141,15 @@ function initMultiStepForm() {
       errorEl.style.display = 'block';
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
+      
+      // Track form failures in Google Analytics
+      if (typeof gtag === 'function') {
+        gtag('event', 'form_error', {
+          'event_category': 'form_submission',
+          'event_label': err.message || 'unknown_error',
+          'value': 1
+        });
+      }
     }
   });
 }

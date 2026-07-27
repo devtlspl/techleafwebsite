@@ -69,7 +69,21 @@ function initMultiStepForm() {
   showStep(0);
 
   form.querySelectorAll('[data-next]').forEach(btn => {
-    btn.addEventListener('click', () => showStep(currentStep + 1));
+    btn.addEventListener('click', () => {
+      const currentPanel = panels[currentStep];
+      const inputs = currentPanel.querySelectorAll('input, select, textarea');
+      let isValid = true;
+      for (const input of inputs) {
+        if (!input.checkValidity()) {
+          input.reportValidity();
+          isValid = false;
+          break;
+        }
+      }
+      if (isValid) {
+        showStep(currentStep + 1);
+      }
+    });
   });
   form.querySelectorAll('[data-prev]').forEach(btn => {
     btn.addEventListener('click', () => showStep(currentStep - 1));

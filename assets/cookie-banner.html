@@ -1,0 +1,144 @@
+<!-- GDPR Cookie Consent Banner -->
+<div id="cookie-banner" class="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a202c;color:#fff;padding:1.5rem;z-index:9999;border-top:4px solid #1a7a4a;font-family:'Inter',system-ui,sans-serif;box-shadow:0 -4px 6px rgba(0,0,0,0.1);">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+    <div style="flex:1;min-width:250px;">
+      <p style="margin:0 0 0.5rem 0;font-weight:600;font-size:0.95rem;">We Use Cookies & Analytics</p>
+      <p style="margin:0;font-size:0.85rem;color:rgba(255,255,255,0.8);line-height:1.5;">We use Google Analytics to understand how you use our site and improve your experience. We only activate tracking after you accept. No personal data is sold.</p>
+    </div>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;flex-shrink:0;">
+      <button id="cookie-accept" style="background:#22a05e;color:white;border:none;padding:0.6rem 1.2rem;border-radius:6px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.2s ease;white-space:nowrap;">
+        Accept & Continue
+      </button>
+      <button id="cookie-decline" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);padding:0.6rem 1.2rem;border-radius:6px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s ease;white-space:nowrap;">
+        Decline Tracking
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #cookie-accept:hover {
+    background: #1a7a4a;
+  }
+  
+  #cookie-decline:hover {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.05);
+  }
+  
+  @media (max-width: 640px) {
+    #cookie-banner {
+      padding: 1rem !important;
+    }
+    
+    #cookie-banner > div {
+      flex-direction: column !important;
+      gap: 1rem !important;
+    }
+    
+    #cookie-banner > div > div:last-child {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    #cookie-banner button {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // GDPR Cookie Banner Logic
+  (function() {
+    const COOKIE_NAME = 'techleaf_analytics_consent';
+    const COOKIE_EXPIRY_DAYS = 365;
+    
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('cookie-accept');
+    const declineBtn = document.getElementById('cookie-decline');
+    
+    // Check if user has already made a choice
+    function getCookie(name) {
+      const nameEQ = name + '=';
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(nameEQ) === 0) {
+          return c.substring(nameEQ.length);
+        }
+      }
+      return null;
+    }
+    
+    function setCookie(name, value, days) {
+      let expires = '';
+      if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = '; expires=' + date.toUTCString();
+      }
+      document.cookie = name + '=' + value + expires + '; path=/; SameSite=Strict';
+    }
+    
+    function hideBanner() {
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+    
+    function showBanner() {
+      if (banner) {
+        banner.style.display = 'block';
+      }
+    }
+    
+    // Initialize banner visibility
+    function init() {
+      const consent = getCookie(COOKIE_NAME);
+      if (!consent) {
+        showBanner();
+      } else {
+        hideBanner();
+      }
+    }
+    
+    // Accept cookies & enable tracking
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function() {
+        setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY_DAYS);
+        hideBanner();
+        // Trigger Google Analytics init if it exists
+        if (window.dataLayer && typeof gtag === 'function') {
+          gtag('consent', 'update', {
+            'analytics_storage': 'granted'
+          });
+        }
+        // Dispatch custom event for other scripts
+        window.dispatchEvent(new CustomEvent('techleaf-analytics-accepted'));
+      });
+    }
+    
+    // Decline analytics but allow essential cookies
+    if (declineBtn) {
+      declineBtn.addEventListener('click', function() {
+        setCookie(COOKIE_NAME, 'declined', COOKIE_EXPIRY_DAYS);
+        hideBanner();
+        // Disable Google Analytics tracking
+        if (typeof gtag === 'function') {
+          gtag('consent', 'update', {
+            'analytics_storage': 'denied'
+          });
+        }
+        window.dispatchEvent(new CustomEvent('techleaf-analytics-declined'));
+      });
+    }
+    
+    // Run on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

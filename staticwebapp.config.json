@@ -1,0 +1,39 @@
+{
+  "navigationFallback": {
+    "rewrite": "/404.html"
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/404.html"
+    }
+  },
+  "routes": [
+    {
+      "route": "/.vscode/*",
+      "allowedRoles": []
+    },
+    {
+      "route": "/.git/*",
+      "allowedRoles": []
+    },
+    {
+      "route": "/.codex",
+      "allowedRoles": []
+    },
+    {
+      "route": "/*.py",
+      "allowedRoles": []
+    },
+    {
+      "route": "/responsive-layout-demo.html",
+      "allowedRoles": []
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["anonymous"]
+    }
+  ],
+  "mimeTypes": {
+    ".webp": "image/webp"
+  }
+}

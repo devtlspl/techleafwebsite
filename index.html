@@ -60,14 +60,45 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.min.css?v=21" />
 
-<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) - Consent-aware initialization -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9JKCP7CT2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  
+  // Check if user has already consented to analytics
+  function getAnalyticsConsent() {
+    const nameEQ = 'techleaf_analytics_consent=';
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      let c = cookies[i].trim();
+      if (c.indexOf(nameEQ) === 0) {
+        return c.substring(nameEQ.length);
+      }
+    }
+    return null;
+  }
+  
+  const consent = getAnalyticsConsent();
+  
+  // Set default consent mode (deny until accepted)
+  gtag('consent', 'default', {
+    'analytics_storage': (consent === 'accepted') ? 'granted' : 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  
   gtag('js', new Date());
-
-  gtag('config', 'G-R9JKCP7CT2');
+  
+  if (consent === 'accepted') {
+    gtag('config', 'G-R9JKCP7CT2');
+  }
+  
+  // Listen for consent changes
+  window.addEventListener('techleaf-analytics-accepted', function() {
+    gtag('config', 'G-R9JKCP7CT2');
+  });
 </script>
 </head>
 <body>
@@ -163,7 +194,7 @@
       <div class="hero-trust">
         <div class="hero-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Respond in 2 hours
+          Respond same business day
         </div>
         <div class="hero-trust-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -208,6 +239,37 @@
 </section>
 
 <!-- =========================================================
+     BLOG SECTION
+========================================================== -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Latest Article</div>
+      <h2>Your DBA Just Quit — What Now?</h2>
+      <p class="lead">Step-by-step emergency response playbook. Real case study: Crisis averted, continuity restored.</p>
+    </div>
+    <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <div style="padding: 40px; display: flex; gap: 30px; align-items: center;">
+        <div style="flex: 1;">
+          <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #22a05e; font-weight: 600; margin-bottom: 10px;">DBA Emergency</div>
+          <h3 style="font-size: 1.5rem; color: #1b5a3f; margin-bottom: 15px; line-height: 1.3;">Your DBA Just Quit — Emergency Response Playbook</h3>
+          <p style="color: #6b7280; margin-bottom: 20px;">Your senior DBA resigned unexpectedly. Here's what to do in the first 4 hours. Includes a real case study showing how crisis planning prevents business disaster.</p>
+          <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
+            <span style="font-size: 0.9rem; color: #6b7280;">Read time: 8 min</span>
+            <span style="color: #e5e7eb;">|</span>
+            <span style="font-size: 0.9rem; color: #6b7280;">Published: Today</span>
+          </div>
+          <a href="blog-dba-emergency.html" class="btn btn-primary">Read Full Article →</a>
+        </div>
+        <div style="flex: 0 0 200px; display: none;">
+          <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #1b5a3f 0%, #0f3d2a 100%); border-radius: 8px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
      OEM MARQUEE (New)
 ========================================================== -->
 <div class="marquee-container">
@@ -233,7 +295,7 @@
     <div class="trust-divider"></div>
     <div class="trust-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      2-Hour Response SLA
+      Same Business Day Response SLA
     </div>
     <div class="trust-divider"></div>
     <div class="trust-item">
@@ -872,7 +934,153 @@
   Tap to Call: 044-3139 6714
 </a>
 
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" class="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a202c;color:#fff;padding:1.5rem;z-index:9999;border-top:4px solid #1a7a4a;font-family:'Inter',system-ui,sans-serif;box-shadow:0 -4px 6px rgba(0,0,0,0.1);">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+    <div style="flex:1;min-width:250px;">
+      <p style="margin:0 0 0.5rem 0;font-weight:600;font-size:0.95rem;">We Use Cookies & Analytics</p>
+      <p style="margin:0;font-size:0.85rem;color:rgba(255,255,255,0.8);line-height:1.5;">We use Google Analytics to understand how you use our site and improve your experience. We only activate tracking after you accept. No personal data is sold.</p>
+    </div>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;flex-shrink:0;">
+      <button id="cookie-accept" style="background:#22a05e;color:white;border:none;padding:0.6rem 1.2rem;border-radius:6px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.2s ease;white-space:nowrap;">
+        Accept & Continue
+      </button>
+      <button id="cookie-decline" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);padding:0.6rem 1.2rem;border-radius:6px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s ease;white-space:nowrap;">
+        Decline Tracking
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #cookie-accept:hover {
+    background: #1a7a4a;
+  }
+  
+  #cookie-decline:hover {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.05);
+  }
+  
+  @media (max-width: 640px) {
+    #cookie-banner {
+      padding: 1rem !important;
+    }
+    
+    #cookie-banner > div {
+      flex-direction: column !important;
+      gap: 1rem !important;
+    }
+    
+    #cookie-banner > div > div:last-child {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    #cookie-banner button {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // GDPR Cookie Banner Logic
+  (function() {
+    const COOKIE_NAME = 'techleaf_analytics_consent';
+    const COOKIE_EXPIRY_DAYS = 365;
+    
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('cookie-accept');
+    const declineBtn = document.getElementById('cookie-decline');
+    
+    // Check if user has already made a choice
+    function getCookie(name) {
+      const nameEQ = name + '=';
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(nameEQ) === 0) {
+          return c.substring(nameEQ.length);
+        }
+      }
+      return null;
+    }
+    
+    function setCookie(name, value, days) {
+      let expires = '';
+      if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = '; expires=' + date.toUTCString();
+      }
+      document.cookie = name + '=' + value + expires + '; path=/; SameSite=Strict';
+    }
+    
+    function hideBanner() {
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+    
+    function showBanner() {
+      if (banner) {
+        banner.style.display = 'block';
+      }
+    }
+    
+    // Initialize banner visibility
+    function init() {
+      const consent = getCookie(COOKIE_NAME);
+      if (!consent) {
+        showBanner();
+      } else {
+        hideBanner();
+      }
+    }
+    
+    // Accept cookies & enable tracking
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function() {
+        setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY_DAYS);
+        hideBanner();
+        // Trigger Google Analytics init if it exists
+        if (window.dataLayer && typeof gtag === 'function') {
+          gtag('consent', 'update', {
+            'analytics_storage': 'granted'
+          });
+        }
+        // Dispatch custom event for other scripts
+        window.dispatchEvent(new CustomEvent('techleaf-analytics-accepted'));
+      });
+    }
+    
+    // Decline analytics but allow essential cookies
+    if (declineBtn) {
+      declineBtn.addEventListener('click', function() {
+        setCookie(COOKIE_NAME, 'declined', COOKIE_EXPIRY_DAYS);
+        hideBanner();
+        // Disable Google Analytics tracking
+        if (typeof gtag === 'function') {
+          gtag('consent', 'update', {
+            'analytics_storage': 'denied'
+          });
+        }
+        window.dispatchEvent(new CustomEvent('techleaf-analytics-declined'));
+      });
+    }
+    
+    // Run on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
 <script src="assets/js/mail-api.js"></script>
+<script src="assets/js/exit-intent.js"></script>
 <script src="assets/js/main.min.js?v=22"></script>
 </body>
 </html>

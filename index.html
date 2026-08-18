@@ -58,7 +58,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.min.css?v=21" />
+  <link rel="stylesheet" href="assets/css/styles.min.css?v=39" />
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9JKCP7CT2"></script>
@@ -105,10 +105,6 @@
         <div class="logo-mark">
           <svg viewBox="0 0 24 24" width="22" height="22"><path d="M17 8C8 10 5.9 16.17 3.82 20.18L5.7 21l1-2.3A4.49 4.49 0 008 19c11 0 14-16 14-16-.5 2-1.5 4-3 5.5-1.5-3-6-4.5-12-1.5 2.5-2 5-3.5 7-3.5 3.5 0 5 3 5 3s-3 .5-5.5.5z"/></svg>
         </div>
-        <div class="logo-text">
-          <div class="logo-name">TechLeaf Systems <span class="pvt-ltd">Private Limited</span></div>
-          <div class="logo-tag">IT Infrastructure · Rentals · Support</div>
-        </div>
       </a>
       <nav class="nav" id="main-nav">
         <a href="index.html" class="active">Home</a>
@@ -141,7 +137,7 @@
      HERO
 ========================================================== -->
 <section class="hero">
-  <div class="container">
+  <div class="hero-inner">
     <div class="hero-content">
         <div class="hero-eyebrow">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M17 8C8 10 5.9 16.17 3.82 20.18L5.7 21l1-2.3A4.49 4.49 0 008 19c11 0 14-16 14-16-.5 2-1.5 4-3 5.5-1.5-3-6-4.5-12-1.5 2.5-2 5-3.5 7-3.5 3.5 0 5 3 5 3s-3 .5-5.5.5z"/></svg>
@@ -178,30 +174,112 @@
       </div>
     </div>
     <!-- Hero image: 9-Box Mosaic -->
-    <div class="hero-img-panel">
-      <div class="hero-bento-16">
-        <div class="bento-item b-1"><img fetchpriority="high" src="assets/img/ai/network_cables_1783687337173-thumb.webp" alt="Stunning AI IT Image" /></div>
-        <div class="bento-item b-2"><img fetchpriority="high" src="assets/img/ai/cloud_computing_1783687368418-thumb.webp" alt="Stunning AI IT Image" /></div>
-        <div class="bento-item b-3"><img fetchpriority="high" src="assets/img/team-collage-thumb.webp" alt="IT Infrastructure Image" /></div>
-        <div class="bento-item b-4"><img fetchpriority="high" src="pic/amc-thumb.webp" alt="IT Infrastructure Image" /></div>
-        <div class="bento-item b-5"><img loading="lazy" src="assets/img/ai/hardware_rental_1783687358332-thumb.webp" alt="Stunning AI IT Image" /></div>
-        <div class="bento-item b-6"><img loading="lazy" src="pic/harware rental-thumb.webp" alt="IT Infrastructure Image" /></div>
-        <div class="bento-item b-7"><img loading="lazy" src="pic/on demand dba-thumb.webp" alt="IT Infrastructure Image" /></div>
-        <div class="bento-item b-8"><img loading="lazy" src="assets/img/delivery-thumb.webp" alt="IT Infrastructure Image" /></div>
-        <div class="bento-item b-9"><img loading="lazy" src="assets/img/ai/modern_server_room_1783687313906-thumb.webp" alt="Stunning AI IT Image" /></div>
-        <div class="bento-item b-10"><img loading="lazy" src="pic/img2-thumb.webp" alt="IT Infrastructure Image" /></div>
-        <div class="bento-item b-11"><img loading="lazy" src="assets/img/high_performance_laptops_team-thumb.webp" alt="IT Infrastructure Image" /></div>
-        <div class="bento-item b-12"><img loading="lazy" src="assets/img/ai/it_support_team_1783687327208-thumb.webp" alt="Stunning AI IT Image" /></div>
-        <div class="bento-item b-13"><img loading="lazy" src="pic/field engineer-thumb.webp" alt="IT Infrastructure Image" /></div>
-        <div class="bento-item b-14"><img loading="lazy" src="pic/dev-thumb.webp" alt="IT Infrastructure Image" /></div>
-        <div class="bento-item b-15"><img loading="lazy" src="assets/img/ai/database_admin_1783687348104-thumb.webp" alt="Stunning AI IT Image" /></div>
-        <div class="bento-item b-16"><img loading="lazy" src="pic/it harware consumable-thumb.webp" alt="IT Infrastructure Image" /></div>
+    <section class="hero-mosaic-stage" id="heroMosaicStage">
+        <div class="hero-mosaic-grid" id="heroMosaicGrid">
+          <!-- Central -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="Data Center Infrastructure" style="--tile-x: 0px; --tile-y: 0px; --tile-width: 285px; --tile-height: 285px;">
+            <article class="hero-mosaic-card image-focus-center">
+              <img src="assets/img/ai/modern_server_room_1783687313906-thumb.webp" alt="Data center infrastructure" fetchpriority="high" />
+            </article>
+          </div>
+          <!-- Left Large -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="Cloud Computing" style="--tile-x: -250px; --tile-y: -25px; --tile-width: 195px; --tile-height: 215px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="assets/img/ai/cloud_computing_1783687368418-thumb.webp" alt="Cloud computing" />
+            </article>
+          </div>
+          <!-- Right Medium -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="Network Solutions" style="--tile-x: 245px; --tile-y: -10px; --tile-width: 175px; --tile-height: 195px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="assets/img/ai/network_cables_1783687337173-thumb.webp" alt="Network cables" />
+            </article>
+          </div>
+          <!-- Top Center -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="IT AMC" style="--tile-x: 0px; --tile-y: -245px; --tile-width: 170px; --tile-height: 165px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="pic/amc-thumb.webp" alt="IT AMC" />
+            </article>
+          </div>
+          <!-- Bottom Center -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="IT Support Team" style="--tile-x: -10px; --tile-y: 245px; --tile-width: 180px; --tile-height: 165px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="assets/img/ai/it_support_team_1783687327208-thumb.webp" alt="IT Support Team" />
+            </article>
+          </div>
+          <!-- Top Left -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="Hardware Rental" style="--tile-x: -205px; --tile-y: -230px; --tile-width: 165px; --tile-height: 160px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="pic/harware rental-thumb.webp" alt="Hardware Rental" />
+            </article>
+          </div>
+          <!-- Top Right -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="Enterprise Rentals" style="--tile-x: 205px; --tile-y: -210px; --tile-width: 155px; --tile-height: 170px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="assets/img/ai/hardware_rental_1783687358332-thumb.webp" alt="Enterprise Rentals" />
+            </article>
+          </div>
+          <!-- Bottom Left -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="Performance Laptops" style="--tile-x: -210px; --tile-y: 200px; --tile-width: 170px; --tile-height: 175px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="assets/img/high_performance_laptops_team-thumb.webp" alt="Performance Laptops" />
+            </article>
+          </div>
+          <!-- Bottom Right -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="Database Administration" style="--tile-x: 195px; --tile-y: 200px; --tile-width: 170px; --tile-height: 185px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="assets/img/ai/database_admin_1783687348104-thumb.webp" alt="Database Administration" />
+            </article>
+          </div>
+          
+          <!-- Smaller outer tiles -->
+          <div class="hero-mosaic-item" tabindex="0" data-title="On-Demand DBA" style="--tile-x: -330px; --tile-y: -160px; --tile-width: 125px; --tile-height: 125px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="pic/on demand dba-thumb.webp" alt="On-Demand DBA" />
+            </article>
+          </div>
+          <div class="hero-mosaic-item" tabindex="0" data-title="Global Delivery" style="--tile-x: 325px; --tile-y: -140px; --tile-width: 115px; --tile-height: 115px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="assets/img/delivery-thumb.webp" alt="Global Delivery" />
+            </article>
+          </div>
+          <div class="hero-mosaic-item" tabindex="0" data-title="Server Racks" style="--tile-x: -340px; --tile-y: 130px; --tile-width: 120px; --tile-height: 120px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="pic/img2-thumb.webp" alt="Server Racks" />
+            </article>
+          </div>
+          <div class="hero-mosaic-item" tabindex="0" data-title="Field Engineers" style="--tile-x: 335px; --tile-y: 130px; --tile-width: 125px; --tile-height: 120px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="pic/field engineer-thumb.webp" alt="Field Engineers" />
+            </article>
+          </div>
+          <div class="hero-mosaic-item" tabindex="0" style="--tile-x: -35px; --tile-y: -360px; --tile-width: 110px; --tile-height: 110px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="pic/dev-thumb.webp" alt="Development" />
+            </article>
+          </div>
+          <div class="hero-mosaic-item" tabindex="0" style="--tile-x: 20px; --tile-y: 360px; --tile-width: 105px; --tile-height: 105px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="pic/it harware consumable-thumb.webp" alt="Consumables" />
+            </article>
+          </div>
+          <div class="hero-mosaic-item" tabindex="0" style="--tile-x: 120px; --tile-y: -350px; --tile-width: 100px; --tile-height: 100px;">
+            <article class="hero-mosaic-card">
+              <img loading="lazy" src="assets/img/team-collage-thumb.webp" alt="Team Collage" />
+            </article>
+          </div>
+          <div class="hero-mosaic-item" tabindex="0" data-title="Your Team" style="--tile-x: 175px; --tile-y: 195px; --tile-width: 195px; --tile-height: 195px;">
+            <article class="hero-mosaic-card image-focus-center">
+              <img loading="lazy" src="assets/img/team-collage-thumb.webp" alt="Team Collage" />
+            </article>
+          </div>
         </div>
-      <div class="hero-img-badge" style="position:static;margin-top:2rem;border-radius:var(--radius);border:1px solid var(--gray-200);">
-        <span class="rating">★★★★★</span>
-        <p><strong>4.9 / 5.0</strong> on Justdial<br/>Verified by 11 real clients across Chennai &amp; Bangalore</p>
+      </section>
+
+      <!-- Moved badge below the mosaic grid -->
+      <div class="hero-img-badge" style="grid-column: 2; justify-self: end; margin-top: -2rem; margin-right: 2rem; position: relative; z-index: 20; border-radius:var(--radius); border:1px solid var(--gray-200); background: rgba(255,255,255,.95); padding: .85rem 1.1rem; display: inline-flex;">
+        <span class="rating" style="color: #f59e0b; font-size: 1.1rem;">★★★★★</span>
+        <p style="margin: 0; font-size: .82rem;"><strong>4.9 / 5.0</strong> on Justdial<br/>Verified by 11 real clients across Chennai & Bangalore</p>
       </div>
-    </div>
   </div>
 </section>
 
@@ -871,6 +949,6 @@
 </a>
 
 <script src="assets/js/mail-api.js"></script>
-<script src="assets/js/main.min.js?v=22"></script>
+<script src="assets/js/main.min.js?v=39" defer></script>
 </body>
 </html>

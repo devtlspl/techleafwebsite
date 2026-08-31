@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Multi-step Form
   initMultiStepForm();
 
-  // Hide WhatsApp widget while hero slider is in view
+  initAppleWatchHeroMosaic();
+    // Hide WhatsApp widget while hero slider is in view
   initHideWhatsAppOnSlider();
 
   // Service option selector
@@ -252,3 +253,163 @@ document.addEventListener('click', function(e) {
     }
   }
 }, true); // use capture phase to intercept before other listeners
+
+
+> function initAppleWatchHeroMosaic() {
+    const grid = document.getElementById('heroMosaicGrid') || document.querySelector('.hero-mosaic-grid');
+    if (!grid) return;
+  
+    const items = Array.from(grid.querySelectorAll('.hero-mosaic-item'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+    const tileData = items.map(item => {
+      const styleStr = item.getAttribute('style') || '';
+      const matchX = styleStr.match(/--tile-x:\s*([^;]+)/);
+      const matchY = styleStr.match(/--tile-y:\s*([^;]+)/);
+      const tileX = matchX ? parseFloat(matchX[1]) : 0;
+      const tileY = matchY ? parseFloat(matchY[1]) : 0;
+      
+      // Create random idle offset timing
+      const floatDelay = Math.random() * -5;
+      const floatDur = 4 + Math.random() * 2;
+      if (!reducedMotion) {
+        item.style.animation = `idleFloat ${floatDur}s ease-in-out ${floatDelay}s infinite alternate`;
+      }
+      
+      return { item, tileX, tileY };
+    });
+  
+    // Inject idle animation keyframes
+    if (!document.getElementById('mosaic-idle-keyframes')) {
+      const style = document.createElement('style');
+      style.id = 'mosaic-idle-keyframes';
+      style.innerHTML = `@keyframes idleFloat { 0% { transform: translate(calc(var(--tile-x) + var(--hover-x)), 
+calc(var(--tile-y) + var(--hover-y) - 3px)); } 100% { transform: translate(calc(var(--tile-x) + var(--hover-x)), 
+calc(var(--tile-y) + var(--hover-y) + 3px)); } }`;
+      document.head.appendChild(style);
+    }
+  
+    let pointerX = 0;
+    let pointerY = 0;
+    let frameId = null;
+  
+    function updateTiles() {
+      frameId = null;
+  
+      if (reducedMotion) return;
+  
+      const gridRect = grid.getBoundingClientRect();
+      if (gridRect.width === 0) return;
+  
+      const gridCenterX = gridRect.left + gridRect.width / 2;
+      const gridCenterY = gridRect.top + gridRect.height / 2;
+  
+      let nearestIndex = -1;
+      let nearestDistance = Infinity;
+  
+      const measuredTiles = tileData.map((data, index) => {
+        const tileCenterX = gridCenterX + data.tileX;
+        const tileCenterY = gridCenterY + data.tileY;
+        const dx = pointerX - tileCenterX;
+        const dy = pointerY - tileCenterY;
+        const distance = Math.hypot(dx, dy);
+  
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearestIndex = index;
+        }
+        return { data, dx, dy, distance };
+      });
+  
+      const activationRadius = 190;
+      const influenceRadius = 260;
+      const maximumRepulsion = 16;
+      const maximumScale = 1.25;
+      const hasActive = nearestIndex >= 0 && nearestDistance <= activationRadius;
+  
+      grid.classList.toggle('has-active', hasActive);
+  
+      // Subtle Grid Parallax
+      const parallaxX = ((pointerX / window.innerWidth) - 0.5) * -16;
+      const parallaxY = ((pointerY / window.innerHeight) - 0.5) * -16;
+      // Don't override scale from CSS, use CSS variable for parallax offset
+      grid.style.transform = `translateY(-50%) translate(${parallaxX}px, ${parallaxY}px)`;
+  
+      measuredTiles.forEach((measured, index) => {
+        const { data, dx, dy, distance } = measured;
+        const safeDistance = Math.max(distance, 1);
+        const influence = Math.max(0, 1 - safeDistance / influenceRadius);
+  
+        let offsetX = 0;
+        let offsetY = 0;
+        let scale = 1;
+        let isActive = false;
+  
+        if (hasActive && index === nearestIndex) {
+          isActive = true;
+          scale = maximumScale;
+          const push = (safeDistance / activationRadius) * 4;
+          offsetX = -(dx / safeDistance) * push;
+          offsetY = -(dy / safeDistance) * push;
+        } else if (influence > 0) {
+          const repulsion = maximumRepulsion * influence;
+          offsetX = -(dx / safeDistance) * repulsion;
+          offsetY = -(dy / safeDistance) * repulsion;
+          scale = 1 + (0.02 * influence);
+        }
+  
+        offsetX = Math.round(offsetX * 10) / 10;
+        offsetY = Math.round(offsetY * 10) / 10;
+        scale = Math.round(scale * 1000) / 1000;
+  
+        data.item.classList.toggle('is-active', isActive);
+        
+        // Update variables instead of direct transform string
+        data.item.style.setProperty('--hover-x', `${offsetX}px`);
+        data.item.style.setProperty('--hover-y', `${offsetY}px`);
+        
+        const card = data.item.querySelector('.hero-mosaic-card');
+        if (card) card.style.setProperty('--hover-scale', scale);
+        
+        // Pause idle float slightly if active to avoid jitter
+        if (isActive) {
+          data.item.style.animationPlayState = 'paused';
+        } else {
+          data.item.style.animationPlayState = 'running';
+        }
+      });
+    }
+  
+    const handlePointer = (e) => {
+      pointerX = e.touches ? e.touches[0].clientX : e.clientX;
+      pointerY = e.touches ? e.touches[0].clientY : e.clientY;
+      
+      // Check if pointer is inside mosaic area roughly to optimize
+      if (!frameId) {
+        frameId = requestAnimationFrame(updateTiles);
+      }
+    };
+  
+    document.addEventListener('pointermove', handlePointer);
+    document.addEventListener('mousemove', handlePointer);
+    document.addEventListener('touchmove', handlePointer, { passive: true });
+  
+    const resetHover = () => {
+      grid.classList.remove('has-active');
+      grid.style.transform = `translateY(-50%)`;
+      tileData.forEach((data) => {
+        data.item.classList.remove('is-active');
+        data.item.style.setProperty('--hover-x', '0px');
+        data.item.style.setProperty('--hover-y', '0px');
+        data.item.style.animationPlayState = 'running';
+        const card = data.item.querySelector('.hero-mosaic-card');
+        if (card) card.style.setProperty('--hover-scale', 1);
+      });
+    };
+  
+    document.addEventListener('pointerleave', resetHover);
+    document.addEventListener('mouseleave', resetHover);
+  }
+
+
+

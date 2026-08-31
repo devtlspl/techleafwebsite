@@ -255,7 +255,7 @@ document.addEventListener('click', function(e) {
 }, true); // use capture phase to intercept before other listeners
 
 
-> function initAppleWatchHeroMosaic() {
+function initAppleWatchHeroMosaic() {
     const grid = document.getElementById('heroMosaicGrid') || document.querySelector('.hero-mosaic-grid');
     if (!grid) return;
   

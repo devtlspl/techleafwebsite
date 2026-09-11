@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Requirement Inquiry - TechLeaf Systems</title>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .form-wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .form-header {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo-section {
+      flex-shrink: 0;
+    }
+
+    .logo-section img {
+      max-width: 120px;
+      height: auto;
+    }
+
+    .header-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .form-header h1 {
+      font-size: 24px;
+      font-weight: 400;
+      color: #202124;
+      margin-bottom: 5px;
+    }
+
+    .form-header p {
+      color: #5f6368;
+      font-size: 13px;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    .error { 
+      color: #d32f2f; 
+      background: #ffebee; 
+      padding: 12px 16px; 
+      border-radius: 4px; 
+      margin-bottom: 20px; 
+      display: none; 
+      border-left: 4px solid #d32f2f;
+      font-size: 13px;
+    }
+
+    .success { 
+      color: #388e3c; 
+      background: #e8f5e9; 
+      padding: 12px 16px; 
+      border-radius: 4px; 
+      margin-bottom: 20px; 
+      display: none; 
+      border-left: 4px solid #388e3c;
+      font-size: 13px;
+    }
+
+    .section {
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #202124;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #dadce0;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #202124;
+      margin-bottom: 8px;
+    }
+
+    .required {
+      color: #d32f2f;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 12px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+      transition: all 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="date"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 1px 3px rgba(102, 126, 234, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: #667eea;
+      flex-shrink: 0;
+    }
+
+    .checkbox-item label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 13px;
+      padding-top: 1px;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+      .checkbox-group {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .form-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #dadce0;
+    }
+
+    button {
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-submit {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: #5568d3;
+      box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-reset {
+      background: #f8f9fa;
+      color: #3c4043;
+      border: 1px solid #dadce0;
+    }
+
+    .btn-reset:hover {
+      background: #f1f3f4;
+    }
+
+    .form-footer {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #5f6368;
+      text-align: center;
+    }
+  </style>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9JKCP7CT2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-R9JKCP7CT2');
+  </script>
+</head>
+<body>
+
+<div class="form-wrapper">
+  <div class="form-header">
+    <div class="logo-section">
+      <img src="https://techleafassets.blob.core.windows.net/assets/TechLeafLogoPNG.png" alt="TechLeaf Systems">
+    </div>
+    <div class="header-text">
+      <h1>Requirement Inquiry Form</h1>
+      <p>Tell us what you need.</p>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <div class="error" id="error"></div>
+    <div class="success" id="success"></div>
+
+    <form id="requirementForm" novalidate>
+      <input type="hidden" name="service" value="requirement_inquiry" />
+
+      <!-- CUSTOMER DETAILS -->
+      <div class="section">
+        <div class="section-title">Customer Details</div>
+        
+        <div class="form-group">
+          <label>Company Name <span class="required">*</span></label>
+          <input type="text" name="company" required placeholder="Your company name">
+        </div>
+
+        <div class="form-group">
+          <label>Contact Person Name <span class="required">*</span></label>
+          <input type="text" name="name" required placeholder="Your name">
+        </div>
+
+        <div class="form-group">
+          <label>Business Email <span class="required">*</span></label>
+          <input type="email" name="email" required placeholder="you@company.com">
+        </div>
+
+        <div class="form-group">
+          <label>Phone / WhatsApp Number <span class="required">*</span></label>
+          <input type="tel" name="phone" required placeholder="+91 XXXXX XXXXX">
+        </div>
+
+        <div class="form-group">
+          <label>Company Location / City <span class="required">*</span></label>
+          <input type="text" name="location" required placeholder="City / Region">
+        </div>
+      </div>
+
+      <!-- RENTAL REQUIREMENT -->
+      <div class="section">
+        <div class="section-title">What do you need? <span class="required">*</span></div>
+        
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="laptop" name="equipment" value="Laptop">
+            <label for="laptop">Laptop</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="desktop" name="equipment" value="Desktop">
+            <label for="desktop">Desktop</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="workstation" name="equipment" value="Workstation">
+            <label for="workstation">Workstation</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="server" name="equipment" value="Server">
+            <label for="server">Server</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="storage" name="equipment" value="Storage">
+            <label for="storage">Storage</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="switch" name="equipment" value="Network Switch">
+            <label for="switch">Network Switch</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="router" name="equipment" value="Router">
+            <label for="router">Router</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="firewall" name="equipment" value="Firewall">
+            <label for="firewall">Firewall</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRAND PREFERENCE -->
+      <div class="section">
+        <div class="section-title">Brand Preference</div>
+        
+        <div class="checkbox-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="dell" name="brand" value="Dell">
+            <label for="dell">Dell</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="hp" name="brand" value="HP">
+            <label for="hp">HP</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="lenovo" name="brand" value="Lenovo">
+            <label for="lenovo">Lenovo</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="apple" name="brand" value="Apple">
+            <label for="apple">Apple</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="hpe" name="brand" value="HPE">
+            <label for="hpe">HPE</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="cisco" name="brand" value="Cisco">
+            <label for="cisco">Cisco</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="anybrand" name="brand" value="Any Brand">
+            <label for="anybrand">Any Brand</label>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="otherbrand" name="brand" value="Other">
+            <label for="otherbrand">Other</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPECIFICATIONS -->
+      <div class="section">
+        <div class="section-title">Your Requirements</div>
+        
+        <div class="form-group">
+          <label>Configuration / Specification <span class="required">*</span></label>
+          <textarea name="specification" required placeholder="e.g., Intel i7, 16GB RAM, 512GB SSD, Windows 11 Pro..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Quantity Required <span class="required">*</span></label>
+          <input type="number" name="quantity" required min="1" placeholder="How many units?">
+        </div>
+      </div>
+
+      <!-- RENTAL PERIOD -->
+      <div class="section">
+        <div class="section-title">Rental Period & Delivery</div>
+        
+        <div class="form-group">
+          <label>Rental Duration <span class="required">*</span></label>
+          <select name="duration" required>
+            <option value="">Select duration...</option>
+            <option value="1–3 Months">1–3 Months</option>
+            <option value="3–6 Months">3–6 Months</option>
+            <option value="6–12 Months">6–12 Months</option>
+            <option value="12–24 Months">12–24 Months</option>
+            <option value="24–36 Months">24–36 Months</option>
+            <option value="Long-term / 36+ Months">Long-term / 36+ Months</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="two-column">
+          <div class="form-group">
+            <label>Required Start Date <span class="required">*</span></label>
+            <input type="date" name="startDate" required>
+          </div>
+          <div class="form-group">
+            <label>Delivery Location <span class="required">*</span></label>
+            <input type="text" name="deliveryLocation" required placeholder="City / Address">
+          </div>
+        </div>
+      </div>
+
+      <!-- EQUIPMENT PREFERENCES -->
+      <div class="section">
+        <div class="section-title">Equipment Preference</div>
+        
+        <div class="form-group">
+          <label>Equipment Condition</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="brandnew" name="condition" value="Brand New">
+              <label for="brandnew">Brand New</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="refurbished" name="condition" value="Refurbished">
+              <label for="refurbished">Refurbished</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="either" name="condition" value="Either">
+              <label for="either">Either</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Operating System</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="win11" name="os" value="Windows 11 Pro">
+              <label for="win11">Windows 11 Pro</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="win10" name="os" value="Windows 10 Pro">
+              <label for="win10">Windows 10 Pro</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="linux" name="os" value="Linux">
+              <label for="linux">Linux</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="noos" name="os" value="No OS">
+              <label for="noos">No OS</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="otheros" name="os" value="Other">
+              <label for="otheros">Other</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Additional Requirements</label>
+          <textarea name="additionalRequirements" placeholder="Any special requests or notes..."></textarea>
+        </div>
+      </div>
+
+      <!-- CONSENT -->
+      <div class="section">
+        <div class="checkbox-item">
+          <input type="checkbox" id="consent" name="consent" required>
+          <label for="consent">I agree to be contacted by TechLeaf Systems regarding this requirement.</label>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="form-buttons">
+        <button type="submit" class="btn-submit">Submit</button>
+        <button type="reset" class="btn-reset">Clear</button>
+      </div>
+    </form>
+
+    <div class="form-footer">
+      Thank you for your submission.
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/mail-api.js"></script>
+<script>
+document.getElementById('requirementForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const form = this;
+  const errorEl = document.getElementById('error');
+  const successEl = document.getElementById('success');
+  const submitBtn = form.querySelector('.btn-submit');
+  
+  errorEl.style.display = 'none';
+  successEl.style.display = 'none';
+  
+  // Validation
+  const company = form.company.value.trim();
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const phone = form.phone.value.trim();
+  const location = form.location.value.trim();
+  const specification = form.specification.value.trim();
+  const quantity = form.quantity.value.trim();
+  const duration = form.duration.value;
+  const startDate = form.startDate.value;
+  const deliveryLocation = form.deliveryLocation.value.trim();
+  const consent = form.consent.checked;
+  
+  if (!company || !name || !email || !phone || !location || !specification || !quantity || !duration || !startDate || !deliveryLocation) {
+    errorEl.textContent = '❌ Please fill all required fields (marked with *)';
+    errorEl.style.display = 'block';
+    return;
+  }
+  
+  if (!consent) {
+    errorEl.textContent = '❌ Please agree to be contacted.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+  
+  try {
+    const equipment = Array.from(form.querySelectorAll('[name="equipment"]:checked')).map(el => el.value).join(', ') || 'Not specified';
+    const brand = Array.from(form.querySelectorAll('[name="brand"]:checked')).map(el => el.value).join(', ') || 'Not specified';
+    const condition = Array.from(form.querySelectorAll('[name="condition"]:checked')).map(el => el.value).join(', ') || 'Not specified';
+    const os = Array.from(form.querySelectorAll('[name="os"]:checked')).map(el => el.value).join(', ') || 'Not specified';
+    
+    const data = {
+      formType: 'requirement_inquiry',
+      service: 'requirement_inquiry',
+      company: company,
+      name: name,
+      email: email,
+      phone: phone,
+      location: location,
+      equipment: equipment,
+      brand: brand,
+      specification: specification,
+      quantity: quantity,
+      duration: duration,
+      startDate: startDate,
+      deliveryLocation: deliveryLocation,
+      condition: condition,
+      os: os,
+      additionalRequirements: form.additionalRequirements.value.trim() || 'None',
+      message: `Requirement Inquiry\n\n--- Customer ---\nCompany: ${company}\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nLocation: ${location}\n\n--- Requirement ---\nType: ${equipment}\nBrand: ${brand}\nQuantity: ${quantity}\nSpecification: ${specification}\nCondition: ${condition}\nOS: ${os}\n\n--- Rental ---\nDuration: ${duration}\nStart Date: ${startDate}\nDelivery Location: ${deliveryLocation}\n\n--- Additional ---\n${form.additionalRequirements.value.trim() || 'None'}`
+    };
+    
+    await window.sendSubmitForm(data);
+    
+    successEl.textContent = '✅ Success! Your inquiry has been submitted.';
+    successEl.style.display = 'block';
+    form.reset();
+    
+    setTimeout(() => {
+      window.location.href = 'thank-you.html';
+    }, 2000);
+    
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        'event_category': 'requirement_inquiry',
+        'event_label': 'form_submission',
+        'value': 100
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    errorEl.textContent = '❌ Error submitting form. Please try again or call +91-8838581550';
+    errorEl.style.display = 'block';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit';
+  }
+});
+</script>
+
+</body>
+</html>
